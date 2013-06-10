@@ -1,24 +1,16 @@
 # Bonde::Rails
 
-TODO: Write a gem description
+Include [Bonde](https://github.com/kwltrs/bonde) in your Rails app.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'bonde-rails'
+    gem 'bonde-rails', github: 'kwltrs/bonde-rails'
 
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install bonde-rails
-
-## Usage
-
-TODO: Write usage instructions here
 
 ## Contributing
 
