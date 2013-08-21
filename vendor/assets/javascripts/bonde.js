@@ -1,4 +1,4 @@
-/*! bonde - v0.0.4 - 2013-06-10
+/*! bonde - v0.0.5 - 2013-08-21
 * https://github.com/kwltrs/bonde
 * Copyright (c) 2013 Kristofer Walters; Licensed MIT */
 /** @namespace */
@@ -234,7 +234,13 @@ var Bonde = this.Bonde || {};
    * @param {DOMElement} node
    */
   B.scanForModules = function (node) {
-      $(node).find('[data-module]').each(function () {
+      var nodes = $(node).find('[data-module]');
+
+      if ( node.hasAttribute && node.hasAttribute('data-module') ) {
+          nodes.push(node);
+      }
+
+      nodes.each(function () {
           var moduleName = $(this).data('module');
           B.applyModule(moduleName, this);
       });
