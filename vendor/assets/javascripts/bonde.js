@@ -1,8 +1,11 @@
-/*! bonde - v0.0.5 - 2013-08-21
+/*! bonde - v0.0.6 - 2013-09-17
 * https://github.com/kwltrs/bonde
 * Copyright (c) 2013 Kristofer Walters; Licensed MIT */
 /** @namespace */
 var Bonde = this.Bonde || {};
+
+// nasty, but needed.
+jQuery.fn.reverse = [].reverse;
 
 (function(B, $) {
   'use strict';
@@ -91,7 +94,13 @@ var Bonde = this.Bonde || {};
           obj.$('[data-attach-to]').each(function () {
               var $this = $(this);
               var attachName = $this.data('attach-to');
-              attachJqueryNode(obj, attachName, $this);
+              if ($this.data('module')) {
+                  obj[attachName] = function () {
+                      return $this.data('bondeModuleContext');
+                  };
+              } else {
+                  attachJqueryNode(obj, attachName, $this);
+              }
           });
       }
 
@@ -132,6 +141,12 @@ var Bonde = this.Bonde || {};
            * @member {Bonde.AttributeHolder} Bonde.ModuleContext#attr
            */
           this.attr = new B.AttributeHolder();
+
+          this.$el.data('bondeModuleContext', this);
+          this.$el.bondeModule = function () {
+              return this.data('bondeModuleContext');
+          };
+
 
           attachNodes(this);
       }
@@ -240,7 +255,7 @@ var Bonde = this.Bonde || {};
           nodes.push(node);
       }
 
-      nodes.each(function () {
+      nodes.reverse().each(function () {
           var moduleName = $(this).data('module');
           B.applyModule(moduleName, this);
       });
