@@ -1,4 +1,4 @@
-/*! bonde - v0.0.6 - 2013-09-17
+/*! bonde - v0.0.7 - 2013-10-31
 * https://github.com/kwltrs/bonde
 * Copyright (c) 2013 Kristofer Walters; Licensed MIT */
 /** @namespace */
@@ -178,6 +178,7 @@ jQuery.fn.reverse = [].reverse;
        */
       ModuleContext.prototype.mixin = function (obj) {
           mixin(this, obj);
+          return this;
       };
 
       return ModuleContext;
